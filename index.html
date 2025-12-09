@@ -2,10 +2,26 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>V1.8.1 Stable Build</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V2.0.0 Stable Build</title>
+
+  <style>
+    button {
+      margin-bottom: 10px;
+    }
+  </style>
+
 </head>
 <body>
   <h1>Choose a page to open:</h1>
+
+  <button onclick="openPage('https://akazimc.github.io/operationbreaker/TuffClient-JS')">
+    WASM-GC TuffClient [RECOMMENDED]
+  </button>
+  <button onclick="openPage('https://akazimc.github.io/operationbreaker/TuffClient-WASM')">
+    JS TuffClient
+  </button>
+
   <button onclick="openPage('https://akazimc.github.io/operationbreaker/Eaglercraft')">
     WASM-GC Eaglercraft
   </button>
@@ -21,7 +37,7 @@
       let doc = win.document;
       doc.open();
       doc.write(`
-        <title>Loading...</title>
+        <title>VERY EDUCATIONAL SITE!</title>
         <style>
           body { margin:0; height:100%; overflow:hidden; }
           iframe { border:none; width:100%; height:100%; }
