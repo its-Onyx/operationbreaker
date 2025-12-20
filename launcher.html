@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Launching…</title>
+<link rel="icon" type="image/png"
+      href="https://akazimc.github.io/operationbreaker/favicon.png">
+
+<style>
+:root {
+  --bg:#000;
+  --accent:#b58cff;
+  --text:#ffffff;
+}
+
+* {
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,
+    "Segoe UI",Roboto,Ubuntu,Cantarell,sans-serif;
+}
+
+body {
+  margin:0;
+  height:100vh;
+  background:var(--bg);
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+/* ---------- LOADING ---------- */
+
+#loading {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  animation:fadeIn .4s ease;
+}
+
+.spinner {
+  width:42px;
+  height:42px;
+  border:3px solid rgba(181,140,255,.25);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform:rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(6px); }
+  to { opacity:1; transform:none; }
+}
+
+/* ---------- IFRAME ---------- */
+
+iframe {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:none;
+  opacity:0;
+  transition:opacity .4s ease;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <div id="loading-text">Launching client…</div>
+</div>
+
+<iframe id="clientFrame"></iframe>
+
+<script>
+/* ---------- GET CLIENT URL ---------- */
+
+const params = new URLSearchParams(window.location.search);
+const clientURL = params.get("client");
+
+if (!clientURL) {
+  document.getElementById("loading-text").textContent =
+    "No client specified.";
+  throw new Error("Missing client URL");
+}
+
+/* ---------- CLIENT NAMES ---------- */
+
+const CLIENT_TITLES = {
+  "TuffClient-WASM": "Savvas Realize",
+  "TuffClient-JS": "Savvas Realize",
+  "Eaglercraft": "Savvas Realize",
+  "Eaglercraft-JS": "Savvas Realize"
+};
+
+let title = "Savvas Realize";
+for (const key in CLIENT_TITLES) {
+  if (clientURL.includes(key)) {
+    title = CLIENT_TITLES[key];
+    break;
+  }
+}
+
+/* ---------- LOAD CLIENT ---------- */
+
+const iframe = document.getElementById("clientFrame");
+iframe.src = clientURL;
+
+iframe.onload = () => {
+  document.getElementById("loading").remove();
+  iframe.style.opacity = "1";
+  document.title = title;
+};
+</script>
+
+</body>
+</html>

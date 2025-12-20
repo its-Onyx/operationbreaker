@@ -1,53 +1,299 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Launcher | V2.0.2</title>
-
-  <style>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Launcher / V3.0.0</title>
+    
+    <style>
+    :root {
+      --bg:#0f0f14;
+      --card:#171724cc;
+      --primary:#b58cff;
+      --primary-hover:#c9a8ff;
+      --text:#ffffff;
+      --text-soft:#e6e6f0;
+      --muted:#a0a0c0;
+    }
+    
+    /* ---------- BASE ---------- */
+    
+    * {
+      box-sizing:border-box;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,
+        "Segoe UI",Roboto,Ubuntu,Cantarell,sans-serif;
+    }
+    
+    body {
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at top,#1b1b2f,var(--bg));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    
+    /* ---------- CARD + GLOW ---------- */
+    
+    .glow {
+      position:absolute;
+      width:520px;
+      height:520px;
+      background:radial-gradient(circle,
+        rgba(181,140,255,.35),
+        transparent 60%);
+      filter:blur(80px);
+      pointer-events:none;
+    }
+    
+    .container {
+      position:relative;
+      background:var(--card);
+      backdrop-filter:blur(10px);
+      padding:28px;
+      border-radius:16px;
+      width:100%;
+      max-width:420px;
+      box-shadow:
+        0 20px 40px rgba(0,0,0,.55),
+        inset 0 0 0 1px rgba(255,255,255,.05);
+    
+      animation:enter .6s ease forwards;
+    }
+    
+    @keyframes enter {
+      from {
+        opacity:0;
+        transform:translateY(10px) scale(.98);
+      }
+      to {
+        opacity:1;
+        transform:none;
+      }
+    }
+    
+    h1 {
+      margin:0 0 18px;
+      font-size:1.4rem;
+      text-align:center;
+      color:var(--primary);
+    }
+    
+    /* ---------- SECTIONS ---------- */
+    
+    .section {
+      margin-bottom:14px;
+    }
+    
+    .section-title {
+      font-size:.8rem;
+      letter-spacing:.08em;
+      color:var(--muted);
+      margin-bottom:8px;
+      text-transform:uppercase;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    
+    .section-divider {
+      height:1px;
+      background:linear-gradient(
+        to right,
+        transparent,
+        rgba(181,140,255,.3),
+        transparent);
+      margin:14px 0;
+    }
+    
+    /* ---------- BUTTONS ---------- */
+    
     button {
-      margin-bottom: 10px;
+      position:relative;
+      width:100%;
+      padding:12px 14px;
+      margin-bottom:10px;
+      border-radius:12px;
+      border:none;
+      cursor:pointer;
+    
+      display:flex;
+      align-items:center;
+      gap:10px;
+    
+      background:linear-gradient(135deg,var(--primary),#8f6bff);
+      transition:
+        transform .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
     }
-  </style>
-
-</head>
-<body>
-  <h1>Choose a page to open:</h1>
-
-  <button onclick="openPage('https://akazimc.github.io/operationbreaker/TuffClient-WASM')">
-    WASM-GC TuffClient [RECOMMENDED]
-  </button>
-  <button onclick="openPage('https://akazimc.github.io/operationbreaker/TuffClient-JS')">
-    JS TuffClient
-  </button>
-
-  <button onclick="openPage('https://akazimc.github.io/operationbreaker/Eaglercraft')">
-    WASM-GC Eaglercraft
-  </button>
-  <button onclick="openPage('https://akazimc.github.io/operationbreaker/Eaglercraft-JS')">
-    JS Eaglercraft
-  </button>
-
-  <script>
+    
+    /* Icon */
+    button svg {
+      width:18px;
+      height:18px;
+      flex-shrink:0;
+      transition:transform .15s ease;
+      fill: currentColor;
+      color: #ffffff;
+      margin-top:1px;
+    }
+    
+    /* Text */
+    .button-text {
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items: flex-start;
+      gap:2px;
+    }
+    
+    .button-title {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    
+    .button-desc {
+      font-size:.75rem;
+      color:var(--text-soft);
+    }
+    
+    /* Hover effects */
+    button:hover {
+      background:linear-gradient(135deg,var(--primary-hover),#a78bff);
+      transform:translateY(-1px) scale(1.01);
+      box-shadow:0 8px 20px rgba(181,140,255,.35);
+    }
+    
+    button:hover svg {
+      transform:translateX(2px);
+    }
+    
+    /* Click feedback */
+    button:active {
+      transform:scale(.98);
+    }
+    
+    /* ---------- BADGE ---------- */
+    
+    .badge {
+      position:absolute;
+      top:8px;
+      right:10px;
+      font-size:.6rem;
+      font-weight:700;
+      letter-spacing:.05em;
+      padding:3px 6px;
+      border-radius:999px;
+      background:rgba(255,255,255,.15);
+      color:#fff;
+    }
+    
+    /* ---------- SECONDARY ---------- */
+    
+    button.secondary {
+      background:transparent;
+      border:1px solid rgba(181,140,255,.35);
+    }
+    
+    button.secondary .button-title {
+      color:var(--primary);
+    }
+    
+    button.secondary .button-desc {
+      color:var(--muted);
+    }
+    
+    button.secondary:hover {
+      background:rgba(181,140,255,.1);
+      box-shadow:0 6px 16px rgba(181,140,255,.25);
+    }
+    
+    /* ---------- FOOTER ---------- */
+    
+    footer {
+      margin-top:12px;
+      font-size:.75rem;
+      color:var(--muted);
+      text-align:center;
+    }
+    </style>
+    </head>
+    
+    <body>
+    
+    <div class="glow"></div>
+    
+    <div class="container">
+      <h1>Choose a Client</h1>
+    
+      <div class="section">
+        <div class="section-title">⭐ Recommended</div>
+    
+        <button onclick="openPage('https://akazimc.github.io/operationbreaker/TuffClient-WASM')">
+          <span class="badge">BEST</span>
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          </svg>
+          <div class="button-text">
+            <div class="button-title">WASM-GC TuffClient</div>
+            <div class="button-desc">Best performance on modern browsers</div>
+          </div>
+        </button>
+      </div>
+    
+      <div class="section-divider"></div>
+    
+      <div class="section">
+        <div class="section-title">🧪 Alternate Builds</div>
+    
+        <button class="secondary" onclick="openPage('https://akazimc.github.io/operationbreaker/TuffClient-JS')">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z"/>
+          </svg>
+          <div class="button-text">
+            <div class="button-title">JS TuffClient</div>
+            <div class="button-desc">Older browser compatibility</div>
+          </div>
+        </button>
+    
+        <button class="secondary" onclick="openPage('https://akazimc.github.io/operationbreaker/Eaglercraft')">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 3h18v6H3zm0 6h18v6H3zm0 6h18v6H3z"/>
+          </svg>
+          <div class="button-text">
+            <div class="button-title">WASM-GC Eaglercraft</div>
+            <div class="button-desc">Modern Eaglercraft build</div>
+          </div>
+        </button>
+    
+        <button class="secondary" onclick="openPage('https://akazimc.github.io/operationbreaker/Eaglercraft-JS')">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2 1 7l11 5 9-4.09V17h2V7L12 2Zm0 13L3 11v4l9 4 9-4v-4l-9 4Z"/>
+          </svg>
+          <div class="button-text">
+            <div class="button-title">JS Eaglercraft</div>
+            <div class="button-desc">Maximum compatibility mode</div>
+          </div>
+        </button>
+      </div>
+    
+      <footer>V3.0.0 – Beta Build</footer>
+    </div>
+    
+    <script>
     function openPage(url) {
-      let win = window.open("about:blank", "_blank");
-
-      // Setup the new tab
-      let doc = win.document;
-      doc.open();
-      doc.write(`
-        <title>Savvas Realize</title>
-        <link rel="icon" type="image/png" href="/favicon.png">
-        <style>
-          body { margin:0; height:100%; overflow:hidden; }
-          iframe { border:none; width:100%; height:100%; }
-        </style>
-        <iframe src="${url}"></iframe>
-      `);
-      doc.close();
+      window.open(
+        "launcher.html?client=" + encodeURIComponent(url),
+        "_blank"
+      );
     }
-  </script>
-</body>
-</html>
+    </script>
+    
+    </body>
+    </html>
 
