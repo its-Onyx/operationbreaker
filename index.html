@@ -1,388 +1,492 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Client Launcher / V3.0.2</title>
-    <link rel="icon" type="image/png"
-          href="https://akazimc.github.io/operationbreaker/server-icon.png">    
-    
-    <style>
-    :root {
-      --bg:#0f0f14;
-      --card:#171724cc;
-      --primary:#b58cff;
-      --primary-hover:#c9a8ff;
-      --text:#ffffff;
-      --text-soft:#e6e6f0;
-      --muted:#a0a0c0;
-    }
-    
-    /* ---------- BASE ---------- */
-    
-    * {
-      box-sizing:border-box;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,
-        "Segoe UI",Roboto,Ubuntu,Cantarell,sans-serif;
-    }
-    
-    body {
-      margin:0;
-      min-height:100vh;
-      background:
-        radial-gradient(circle at top,#1b1b2f,var(--bg));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-    }
-    
-    /* ---------- CARD + GLOW ---------- */
-    
-    .glow {
-      position:absolute;
-      width:520px;
-      height:520px;
-      background:radial-gradient(circle,
-        rgba(181,140,255,.35),
-        transparent 60%);
-      filter:blur(80px);
-      pointer-events:none;
-    }
-    
-    .container {
-      position:relative;
-      background:var(--card);
-      backdrop-filter:blur(10px);
-      padding:28px;
-      border-radius:16px;
-      width:100%;
-      max-width:420px;
-      box-shadow:
-        0 20px 40px rgba(0,0,0,.55),
-        inset 0 0 0 1px rgba(255,255,255,.05);
-    
-      animation:enter .6s ease forwards;
-    }
-    
-    @keyframes enter {
-      from {
-        opacity:0;
-        transform:translateY(10px) scale(.98);
-      }
-      to {
-        opacity:1;
-        transform:none;
-      }
-    }
-    
-    h1 {
-      margin:0 0 18px;
-      font-size:1.4rem;
-      text-align:center;
-      color:var(--primary);
-    }
-    
-    /* ---------- SECTIONS ---------- */
-    
-    .section {
-      margin-bottom:14px;
-    }
-    
-    .section-title {
-      font-size:.8rem;
-      letter-spacing:.08em;
-      color:var(--muted);
-      margin-bottom:8px;
-      text-transform:uppercase;
-      display:flex;
-      align-items:center;
-      gap:6px;
-    }
-    
-    .section-divider {
-      height:1px;
-      background:linear-gradient(
-        to right,
-        transparent,
-        rgba(181,140,255,.3),
-        transparent);
-      margin:14px 0;
-    }
-    
-    /* ---------- BUTTONS ---------- */
-    
-    button {
-      position:relative;
-      width:100%;
-      padding:12px 14px;
-      margin-bottom:10px;
-      border-radius:12px;
-      border:none;
-      cursor:pointer;
-    
-      display:flex;
-      align-items:center;
-      gap:10px;
-    
-      background:linear-gradient(135deg,var(--primary),#8f6bff);
-      transition:
-        transform .15s ease,
-        box-shadow .15s ease,
-        background .15s ease;
-    }
-    
-    /* Icon */
-    button svg {
-      width:18px;
-      height:18px;
-      flex-shrink:0;
-      transition:transform .15s ease;
-      fill: currentColor;
-      color: #ffffff;
-      margin-top:1px;
-    }
-    
-    /* Text */
-    .button-text {
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items: flex-start;
-      gap:2px;
-    }
-    
-    .button-title {
-      font-size: .95rem;
-      font-weight: 600;
-      color: var(--text);
-      line-height: 1.2;
-    }
-    
-    .button-desc {
-      font-size:.75rem;
-      color:var(--text-soft);
-    }
-    
-    /* Hover effects */
-    button:hover {
-      background:linear-gradient(135deg,var(--primary-hover),#a78bff);
-      transform:translateY(-1px) scale(1.01);
-      box-shadow:0 8px 20px rgba(181,140,255,.35);
-    }
-    
-    button:hover svg {
-      transform:translateX(2px);
-    }
-    
-    /* Click feedback */
-    button:active {
-      transform:scale(.98);
-    }
-    
-    /* ---------- BADGE ---------- */
-    
-    .badge {
-      position:absolute;
-      top:8px;
-      right:10px;
-      font-size:.6rem;
-      font-weight:700;
-      letter-spacing:.05em;
-      padding:3px 6px;
-      border-radius:999px;
-      background:rgba(255,255,255,.15);
-      color:#fff;
-    }
-    
-    /* ---------- SECONDARY ---------- */
-    
-    button.secondary {
-      background:transparent;
-      border:1px solid rgba(181,140,255,.35);
-    }
-    
-    button.secondary .button-title {
-      color:var(--primary);
-    }
-    
-    button.secondary .button-desc {
-      color:var(--muted);
-    }
-    
-    button.secondary:hover {
-      background:rgba(181,140,255,.1);
-      box-shadow:0 6px 16px rgba(181,140,255,.25);
-    }
-    
-    /* ---------- FOOTER ---------- */
-    
-    footer {
-      margin-top:12px;
-      font-size:.75rem;
-      color:var(--muted);
-      text-align:center;
-    }
-    </style>
-    </head>
-    
-    <body>
-    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Client Launcher / V3.2.0</title>
+<link rel="icon" type="image/png" href="https://akazimc.github.io/operationbreaker/server-icon.png">    
+
+<style>
+:root {
+  --bg: #0f0f14;
+  --card: rgba(23, 23, 36, 0.95);
+  --primary: #b58cff;
+  --primary-hover: #c9a8ff;
+  --text: #ffffff;
+  --text-soft: #e6e6f0;
+  --muted: #a0a0c0;
+}
+
+/* ---------- BASE ---------- */
+
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(circle at 50% 0%, #2a2a40, transparent 70%),
+    radial-gradient(circle at 80% 80%, rgba(181, 140, 255, 0.08), transparent 40%);
+  overflow: hidden; /* Main page doesn't scroll, the card does */
+  color: var(--text);
+}
+
+.page-center {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* ---------- CARD + GLOW ---------- */
+
+.glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(181, 140, 255, 0.25), transparent 65%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  position: relative;
+  z-index: 10;
+  background: var(--card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 24px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 440px;
+  /* SCROLLING FIXES */
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 
+    0 24px 48px -12px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  animation: enter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Custom Scrollbar */
+.container::-webkit-scrollbar {
+  width: 8px;
+}
+.container::-webkit-scrollbar-track {
+  background: transparent;
+}
+.container::-webkit-scrollbar-thumb {
+  background-color: rgba(181, 140, 255, 0.2);
+  border-radius: 20px;
+  border: 2px solid var(--bg); /* Creates padding effect */
+}
+.container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(181, 140, 255, 0.4);
+}
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+h1 {
+  margin: 0 0 20px;
+  font-size: 1.5rem;
+  text-align: center;
+  background: linear-gradient(to right, #fff, var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+/* ---------- SECTIONS ---------- */
+
+.section { margin-bottom: 20px; }
+
+.section-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+  margin: 20px 0;
+}
+
+/* ---------- BUTTONS ---------- */
+
+button {
+  position: relative;
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  background: linear-gradient(135deg, var(--primary), #8f6bff);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon */
+button svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  fill: currentColor;
+  color: #fff;
+}
+
+/* Text */
+.button-text {
+  flex: 1;
+}
+.button-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+}
+.button-desc {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.85);
+  margin-top: 2px;
+}
+
+/* Hover effects */
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(181, 140, 255, 0.4);
+}
+button:hover svg { transform: scale(1.1); }
+button:active { transform: scale(0.98); }
+
+/* ---------- BADGE ---------- */
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.25);
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+/* ---------- SECONDARY STYLE ---------- */
+
+button.secondary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+button.secondary .button-title { color: var(--text-soft); }
+button.secondary .button-desc { color: var(--muted); }
+
+button.secondary:hover {
+  background: rgba(181, 140, 255, 0.1);
+  border-color: rgba(181, 140, 255, 0.3);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- VERSION TOGGLE ---------- */
+
+.version-toggle {
+  display: flex;
+  background: rgba(0,0,0,0.2);
+  padding: 4px;
+  border-radius: 14px;
+}
+
+.version-btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-bottom: 0; /* Override button generic style */
+  box-shadow: none; /* Override button generic style */
+  justify-content: center;
+}
+
+.version-btn:hover { 
+  background: rgba(255,255,255,0.05); 
+  transform: none; 
+}
+
+.version-btn.active {
+  background: var(--card);
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+button.hidden { display: none !important; }
+
+/* ---------- FOOTER ---------- */
+
+footer {
+  margin-top: 24px;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: center;
+  opacity: 0.6;
+}
+
+/* ------------ Ko-Fi Button ---------- */
+
+.kofi-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 100;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.kofi-btn:hover { opacity: 1; }
+.kofi-btn img { height: 32px; border: 0; display: block;}
+
+</style>
+</head>
+
+<body>
+  
+  <div class="page-center">
     <div class="glow"></div>
-    
+
     <div class="container">
-      <h1>Choose a Client</h1>
-    
+      <h1>Launcher AkaziMC</h1>
+
       <div class="section">
-        <div class="section-title">⭐ Recommended</div>
-    
-        <button onclick="openPage('https://clients.akazimc.xx.kg/TuffClient-WASM.html')">
-          <span class="badge">BEST</span>
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-          </svg>
+        <div class="section-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Select Version
+        </div>
+        <div class="version-toggle">
+          <button class="version-btn active" onclick="filterVersion('1.12.2', this)">1.12.2</button>
+          <button class="version-btn" onclick="filterVersion('1.8.8', this)">1.8.8</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Recommended</div>
+
+        <button data-version="1.12.2" onclick="openPage('https://clients.akazimc.xx.kg/Tuff_Client_Offline_WASM.html')">
+          <span class="badge">FASTEST</span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.13 22.19L11 21.63l2.13-.56L13.69 19l.56 2.13 2.13.56-2.13.56-.56 2.13-.56-2.19zM6 14.5l6-6 2.25 2.25L21 4V13l-6.75 6.75-2.25-2.25-6 6V14.5z"/></svg>
           <div class="button-text">
-            <div class="button-title">WASM-GC TuffClient</div>
-            <div class="button-desc">Best performance on modern browsers</div>
+            <div class="button-title">TuffClient (WASM)</div>
+            <div class="button-desc">High performance, crash resistant</div>
+          </div>
+        </button>
+
+        <button data-version="1.8.8" onclick="openPage('https://clients.akazimc.xx.kg/astrawasmoffline.html')">
+          <span class="badge">STABLE</span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5 9.5 9.75 12 11zm0 2.5l-5-2.5-5 2.5 10 5 10-5-5-2.5-5 2.5z"/></svg>
+          <div class="button-text">
+            <div class="button-title">AstraClient (WASM)</div>
+            <div class="button-desc">Best for 1.8 PVP</div>
           </div>
         </button>
       </div>
-    
+
       <div class="section-divider"></div>
-    
+
       <div class="section">
-        <div class="section-title">🧪 Alternate Builds</div>
-    
-        <button class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/TuffClient-JS.html')">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 15h-2v-2h2Zm0-4h-2V7h2Z"/>
-          </svg>
+        <div class="section-title">Alternates & Legacy</div>
+
+        <button data-version="1.12.2" class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/Tuff_Client_JS.html')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
           <div class="button-text">
-            <div class="button-title">JS TuffClient</div>
-            <div class="button-desc">Older browser compatibility</div>
+            <div class="button-title">TuffClient (JS)</div>
+            <div class="button-desc">Compatibility mode for older school chromebooks</div>
           </div>
         </button>
-    
-        <button class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/Eaglercraft.html')">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 3h18v6H3zm0 6h18v6H3zm0 6h18v6H3z"/>
-          </svg>
+
+        <button data-version="1.12.2" class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/Eaglercraft.html')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
           <div class="button-text">
-            <div class="button-title">WASM-GC Eaglercraft</div>
-            <div class="button-desc">Modern Eaglercraft build</div>
+            <div class="button-title">Eaglercraft (WASM)</div>
+            <div class="button-desc">Standard unmodded client</div>
           </div>
         </button>
-    
-        <button class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/Eaglercraft-JS.html')">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2 1 7l11 5 9-4.09V17h2V7L12 2Zm0 13L3 11v4l9 4 9-4v-4l-9 4Z"/>
-          </svg>
+
+         <button data-version="1.12.2" class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/Eaglercraft-JS.html')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
           <div class="button-text">
-            <div class="button-title">JS Eaglercraft</div>
-            <div class="button-desc">Maximum compatibility mode</div>
+            <div class="button-title">Eaglercraft (JS)</div>
+            <div class="button-desc">Legacy unmodded client</div>
           </div>
         </button>
+        
+        <button data-version="1.12.2" class="secondary" onclick="openPage('https://pixelclient.xyz/')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+          <div class="button-text">
+            <div class="button-title">PixelClient</div>
+            <div class="button-desc">External Launcher</div>
+          </div>
+        </button>
+
+
+        <button data-version="1.8.8" class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/astrajsoffline.html')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
+          <div class="button-text">
+            <div class="button-title">AstraClient (JS)</div>
+            <div class="button-desc">Compatibility mode for older school chromebooks</div>
+          </div>
+        </button>
+
+        <button data-version="1.8.8" class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/EaglercraftX_1.8_WASM-GC_Offline_Download.html')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+          <div class="button-text">
+            <div class="button-title">Eaglercraft (WASM)</div>
+            <div class="button-desc">Standard unmodded client</div>
+          </div>
+        </button>
+
+        <button data-version="1.8.8" class="secondary" onclick="openPage('https://clients.akazimc.xx.kg/EaglercraftX_1.8_u53_Offline_Signed.html')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          <div class="button-text">
+            <div class="button-title">Eaglercraft (JS)</div>
+            <div class="button-desc">Legacy unmodded client</div>
+          </div>
+        </button>
+
+        <button data-version="1.8.8" class="secondary" onclick="openPage('https://pixelclient.xyz/')">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+          <div class="button-text">
+            <div class="button-title">PixelClient</div>
+            <div class="button-desc">External Launcher</div>
+          </div>
+        </button>
+
       </div>
-    
-      <footer>V3.0.2 – Stable Build</footer>
+
+      <footer>V3.2.0 • Created by Verxus</footer>
     </div>
-    
-    <script>
-      function openPage(url) {
-        const win = window.open("about:blank", "_blank");
+  </div>
 
-        win.document.write(`
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <a class="kofi-btn" href="https://ko-fi.com/A0A61IAEQ5" target="_blank">
+    <img src="https://storage.ko-fi.com/cdn/kofi6.png?v=6" alt="Buy Me a Coffee">
+  </a>
 
-      <title>Launching…</title>
-      <link rel="icon" type="image/png"
-            href="https://akazimc.github.io/operationbreaker/favicon.png">
+  <script>
+    // ---------- CONFIGURATION ----------
+    // Change these to disguise the tab when a game opens
+    const CLOAK_CONFIG = {
+      title: "Savvas Realize",
+      icon: "https://akazimc.github.io/operationbreaker/favicon.png"
+    };
 
-      <style>
-      :root {
-        --accent:#b58cff;
+    // ---------- FUNCTIONS ----------
+
+    function filterVersion(version, btn) {
+      // 1. Reset all buttons to inactive
+      document.querySelectorAll(".version-btn").forEach(b => {
+        b.classList.remove("active");
+        // Fix: Ensure we don't accidentally remove specific styling if added later
+      });
+      
+      // 2. Set clicked button to active
+      btn.classList.add("active");
+
+      // 3. Show/Hide entries
+      const entries = document.querySelectorAll("button[data-version]");
+      entries.forEach(entry => {
+        if (entry.dataset.version === version) {
+          entry.classList.remove("hidden");
+          // Add a small animation reset
+          entry.style.animation = 'none';
+          entry.offsetHeight; /* trigger reflow */
+          entry.style.animation = 'enter 0.3s ease forwards';
+        } else {
+          entry.classList.add("hidden");
+        }
+      });
+    }
+
+    function openPage(url) {
+      const win = window.open("about:blank", "_blank");
+      
+      if (!win) {
+        alert("Pop-up blocked! Please allow pop-ups for this launcher.");
+        return;
       }
 
-      * {
-        box-sizing:border-box;
-        font-family:system-ui,-apple-system,BlinkMacSystemFont,
-          "Segoe UI",Roboto,Ubuntu,Cantarell,sans-serif;
+      // We write the HTML into the new window
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Loading...</title>
+          <link rel="icon" type="image/png" href="${CLOAK_CONFIG.icon}">
+          <style>
+            body { margin:0; height:100vh; background:#000; overflow:hidden; display:flex; justify-content:center; align-items:center; }
+            iframe { width:100%; height:100%; border:none; }
+            /* Simple loading spinner */
+            .loader { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: #b58cff; border-radius: 50%; animation: spin 0.8s linear infinite; position: absolute; z-index: -1; }
+            @keyframes spin { to { transform: rotate(360deg); } }
+          </style>
+        </head>
+        <body>
+          <div class="loader"></div>
+          <iframe id="clientFrame" src="${url}" allowfullscreen="true"></iframe>
+          <script>
+            const frame = document.getElementById('clientFrame');
+            frame.onload = function() {
+              document.title = "${CLOAK_CONFIG.title}";
+            };
+          <\/script>
+        </body>
+        </html>
+      `;
+
+      win.document.write(htmlContent);
+      win.document.close();
+    }
+
+    // Initialize Default View
+    window.addEventListener("DOMContentLoaded", () => {
+      // Find the first active button or default to 1.12.2
+      const defaultBtn = document.querySelector(".version-btn.active") 
+                      || document.querySelector(".version-btn");
+      if(defaultBtn) {
+        filterVersion('1.12.2', defaultBtn);
       }
-
-      body {
-        margin:0;
-        height:100vh;
-        background:#000;
-        color:var(--accent);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        overflow:hidden;
-      }
-
-      #loading {
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        gap:14px;
-      }
-
-      .spinner {
-        width:42px;
-        height:42px;
-        border:3px solid rgba(181,140,255,.25);
-        border-top-color:var(--accent);
-        border-radius:50%;
-        animation:spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        to { transform:rotate(360deg); }
-      }
-
-      iframe {
-        position:absolute;
-        inset:0;
-        width:100%;
-        height:100%;
-        border:none;
-        opacity:0;
-        transition:opacity .4s ease;
-      }
-      </style>
-      </head>
-
-      <body>
-
-      <div id="loading">
-        <div class="spinner"></div>
-        <div id="loading-text">Launching client…</div>
-      </div>
-
-      <iframe id="clientFrame"></iframe>
-
-      <script>
-      const iframe = document.getElementById("clientFrame");
-      iframe.src = ${JSON.stringify(url)};
-
-      iframe.onload = () => {
-        document.getElementById("loading").remove();
-        iframe.style.opacity = "1";
-        document.title = "Savvas Realize";
-      };
-      <\/script>
-
-      </body>
-      </html>
-        `);
-
-        win.document.close();
-      }
-    </script>
- </body>
+    });
+  </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"280007eb22d6459eb2123c5f403b1f03","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
 </html>
-
