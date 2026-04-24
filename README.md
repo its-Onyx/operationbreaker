@@ -1,7 +1,7 @@
 # Operation Breaker
 
-If you cannot use the GitHub page. Email me at
-rayneliuhalbert@s.sfusd.edu
+If you encounter and problems. Email me at
+raliu-halbert@s.sfusd.edu
 
 Other domain points you can go to the launcher at are listed below
 
