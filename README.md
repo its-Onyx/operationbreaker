@@ -1,6 +1,6 @@
 # Operation Breaker
 
-If you encounter and problems. Email me at
+If you encounter any problems. Email me at
 raliu-halbert@s.sfusd.edu
 
 Other domain points you can go to the launcher at are listed below
