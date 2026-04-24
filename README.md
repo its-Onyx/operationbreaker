@@ -1,3 +1,5 @@
+# Operation Breaker
+
 If you cannot use the GitHub page. Email me at the address listed below
 rayneliuhalbert@s.sfusd.edu
 
@@ -10,4 +12,4 @@ More clients will be added in the future when more clients bring out 1.12.2. The
 1.8.8 clients will be added during version 3.1.0. Which will have many legacy clients like Astra, Tuff, Official, and others, I can find.
 
 # Operaton breaker (update 1.1)
-Astra client WASM was replaced by Resent client
+Astra client (WASM) was replaced by Resent client (WASM)
