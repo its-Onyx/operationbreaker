@@ -10,5 +10,5 @@ https://its-onyx.github.io/operationbreaker/
 
 This site is in active development and more sites will be added in the future
 
-# Operaton breaker (update 1.1)
+# Operaton breaker (v1.1)
 Astra client (WASM) was replaced by Resent client (WASM)
